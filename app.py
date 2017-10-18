@@ -1,18 +1,32 @@
 from flask import Flask
 from datetime import datetime
+from pyvirtualdisplay import Display
+from selenium import webdriver
+
 app = Flask(__name__)
 
-@app.route('/')
-def homepage():
-    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
+# def get_pic(siteURL):
+#   display = Display(visible=0, size=(1024,800))
+#   display.start()
+#
+#   print "Starting display..."
+#   browser = webdriver.Firefox()
+#   print "Loading site...."
+#   browser.get('https://' + siteURL)
+#   browser.get_screenshot_as_base64('screenie.txt')
+#   return "Saved"
 
-    return """
-    <h1>Hello heroku</h1>
-    <p>It is currently {time}.</p>
+@app.route('/<siteURL>')
+def get_pic(siteURL):
+  display = Display(visible=0, size=(1024,800))
+  display.start()
 
-    <img src="http://loremflickr.com/600/400" />
-    """.format(time=the_time)
+  print "Starting display..."
+  browser = webdriver.Firefox()
+  print "Loading site...."
+  browser.get('https://' + siteURL)
+  browser.get_screenshot_as_base64('screenie.txt')
+  return "Saved"
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
-
