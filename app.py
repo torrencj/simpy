@@ -18,15 +18,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-  display = Display(visible=0, size=(1024,800))
-  display.start()
-
-  print "Starting display..."
-  browser = webdriver.Firefox()
-  print "Loading site...."
-  browser.get('https://' + siteURL)
-  browser.get_screenshot_as_base64('screenie.txt')
-  return "Saved"
+  return "Hello world"
 
 @app.route('/<siteURL>')
 def get_pic(siteURL):
